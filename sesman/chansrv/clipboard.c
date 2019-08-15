@@ -1703,7 +1703,7 @@ clipboard_event_selection_owner_notify(XEvent *xevent)
 {
     int uid, pid, gid;
     g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
-    LOGM((LOG_LEVEL_DEBUG, "Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num))
+    LOGM((LOG_LEVEL_DEBUG, "Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num));
     //log_message(LOG_LEVEL_DEBUG, "Clipboard event detected: uid=%d gid=%d pid=%d screen=$d", uid, gid, pid, g_screen_num);
     
     XFixesSelectionNotifyEvent *lxevent;
