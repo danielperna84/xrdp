@@ -1700,6 +1700,10 @@ clipboard_data_in(struct stream *s, int chan_id, int chan_flags, int length,
 static int
 clipboard_event_selection_owner_notify(XEvent *xevent)
 {
+    int uid, pid, gid;
+    g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
+    log_always("Clipboard event detected: uid=%d gid=%d pid=%d screen=$d", uid, gid, pid, g_screen_num);
+    
     XFixesSelectionNotifyEvent *lxevent;
 
     lxevent = (XFixesSelectionNotifyEvent *)xevent;
