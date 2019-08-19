@@ -2071,6 +2071,8 @@ clipboard_event_selection_notify(XEvent *xevent)
         }
     }
 
+    int uid, pid, gid;
+    g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
     if (got_file_atom != 0)
     {
         /* text/uri-list or x-special/gnome-copied-files */
@@ -2079,6 +2081,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event file: uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_utf8)
     {
@@ -2087,6 +2090,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event string: uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_string)
     {
@@ -2095,6 +2099,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event string: uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_bmp_image)
     {
@@ -2103,6 +2108,10 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event bitmap: uid=%d gid=%d pid=%d", uid, gid, pid));
+    }
+    else {
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event other: uid=%d gid=%d pid=%d", uid, gid, pid));
     }
 
     if (send_format_announce)
