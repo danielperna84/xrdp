@@ -1702,9 +1702,12 @@ static int
 clipboard_event_selection_owner_notify(XEvent *xevent)
 {
     int uid, pid, gid;
-    LOGM((LOG_LEVEL_DEBUG, "clipboard_event_selection_owner_notify LOGM test"));
-    log_message(LOG_LEVEL_DEBUG, "clipboard_event_selection_owner_notify log_message test");
+    LOGM((LOG_LEVEL_DEBUG, "clipboard_event_selection_owner_notify LOGM test - debug"));
+    log_message(LOG_LEVEL_DEBUG, "clipboard_event_selection_owner_notify log_message test - debug");
     log_debug("clipboard_event_selection_owner_notify log_debug test");
+    LOGM((LOG_LEVEL_ERROR, "clipboard_event_selection_owner_notify LOGM test - error"));
+    log_message(LOG_LEVEL_ERROR, "clipboard_event_selection_owner_notify log_message test - error");
+    log_error("clipboard_event_selection_owner_notify log_debug test");
     //g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
     //LOGM((LOG_LEVEL_DEBUG, "oLOGM: Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num));
     //log_message(LOG_LEVEL_DEBUG, "olog_message: Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num);
@@ -1871,6 +1874,9 @@ clipboard_event_selection_notify(XEvent *xevent)
     LOGM((LOG_LEVEL_DEBUG, "clipboard_event_selection_notify LOGM test"));
     log_message(LOG_LEVEL_DEBUG, "clipboard_event_selection_notify log_message test");
     log_debug("clipboard_event_selection_notify log_debug test");
+    LOGM((LOG_LEVEL_ERROR, "clipboard_event_selection_notify LOGM test - error"));
+    log_message(LOG_LEVEL_ERROR, "clipboard_event_selection_notify log_message test - error");
+    log_error("clipboard_event_selection_notify log_error test");
     //g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
     //LOGM((LOG_LEVEL_DEBUG, "LOGM: Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num));
     //log_message(LOG_LEVEL_DEBUG, "log_message: Clipboard event detected: uid=%d gid=%d pid=%d screen=%d", uid, gid, pid, g_screen_num);
