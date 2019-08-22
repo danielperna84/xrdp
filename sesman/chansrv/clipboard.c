@@ -1260,12 +1260,14 @@ clipboard_process_data_response(struct stream *s, int clip_msg_status,
     g_clip_c2s.in_request = 0;
     if (g_clip_c2s.xrdp_clip_type == XRDP_CB_BITMAP)
     {
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=bitmap"));
         clipboard_process_data_response_for_image(s, clip_msg_status,
                 clip_msg_len);
         return 0;
     }
     if (g_clip_c2s.xrdp_clip_type == XRDP_CB_FILE)
     {
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=file"));
         g_free(g_clip_c2s.data);
         g_clip_c2s.data = (char *)g_malloc(1024 * 1024, 1);
         /* text/uri-list */
@@ -1288,6 +1290,7 @@ clipboard_process_data_response(struct stream *s, int clip_msg_status,
         clipboard_provide_selection_c2s(lxev, lxev->target);
         return 0;
     }
+    LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=string"));
     log_debug("clipboard_process_data_response: "
               "CLIPRDR_DATA_RESPONSE");
     len = (int)(s->end - s->p);
