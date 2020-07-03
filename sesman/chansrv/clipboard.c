@@ -1260,12 +1260,14 @@ clipboard_process_data_response(struct stream *s, int clip_msg_status,
     g_clip_c2s.in_request = 0;
     if (g_clip_c2s.xrdp_clip_type == XRDP_CB_BITMAP)
     {
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=bitmap"));
         clipboard_process_data_response_for_image(s, clip_msg_status,
                 clip_msg_len);
         return 0;
     }
     if (g_clip_c2s.xrdp_clip_type == XRDP_CB_FILE)
     {
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=file"));
         g_free(g_clip_c2s.data);
         g_clip_c2s.data = (char *)g_malloc(1024 * 1024, 1);
         /* text/uri-list */
@@ -1288,6 +1290,7 @@ clipboard_process_data_response(struct stream *s, int clip_msg_status,
         clipboard_provide_selection_c2s(lxev, lxev->target);
         return 0;
     }
+    LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard paste event: type=string"));
     log_debug("clipboard_process_data_response: "
               "CLIPRDR_DATA_RESPONSE");
     len = (int)(s->end - s->p);
@@ -2067,6 +2070,8 @@ clipboard_event_selection_notify(XEvent *xevent)
         }
     }
 
+    int uid, pid, gid;
+    g_sck_get_peer_cred(g_x_socket, &pid, &uid, &gid);
     if (got_file_atom != 0)
     {
         /* text/uri-list or x-special/gnome-copied-files */
@@ -2075,6 +2080,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event: type=file uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_utf8)
     {
@@ -2083,6 +2089,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event: type=string uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_string)
     {
@@ -2091,6 +2098,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event: type=string uid=%d gid=%d pid=%d", uid, gid, pid));
     }
     else if (got_bmp_image)
     {
@@ -2099,6 +2107,7 @@ clipboard_event_selection_notify(XEvent *xevent)
         g_clip_s2c.converted = 0;
         g_clip_s2c.clip_time = lxevent->time;
         send_format_announce = 1;
+        LOGM((LOG_LEVEL_INFO, "LOGM: Clipboard copy event: type=bitmap uid=%d gid=%d pid=%d", uid, gid, pid));
     }
 
     if (send_format_announce)
