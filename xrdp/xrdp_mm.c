@@ -121,10 +121,11 @@ xrdp_mm_module_cleanup(struct xrdp_mm *self)
             screen = self->wm->screen->id;
             LOG(LOG_LEVEL_INFO, "xrdp_mm_module_cleanup: xrdp_pid=%d "
                         "disconnected xrdp-chansrv=%d X11rdp_uid=%d X11rdp_gid=%d "
-                        "client_ip=%s client_port=%s display=%d screen=%d",
+                        "client_ip=%d client_port=%d display=%d screen=%d",
                         my_pid, pid, uid, gid,
-                        self->wm->session->client_info->client_addr,
-                        self->wm->session->client_info->client_port,
+                        0, 0,
+                        //self->wm->session->client_info->client_addr,
+                        //self->wm->session->client_info->client_port,
                         display, screen);
         }
         else
