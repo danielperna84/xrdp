@@ -665,7 +665,7 @@ g_sck_close(int sck)
     char r_ip[256];
     if (sck != 0)
     {
-        g_write_ip_address(sck, r_ip, 255);
+        g_write_connection_description(sck, r_ip, 255);
     }
 #if defined(_WIN32)
     closesocket(sck);
