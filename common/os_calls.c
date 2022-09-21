@@ -662,6 +662,11 @@ g_sck_get_peer_cred(int sck, int *pid, int *uid, int *gid)
 void
 g_sck_close(int sck)
 {
+    char r_ip[256];
+    if (sck != 0)
+    {
+        g_write_ip_address(sck, r_ip, 255);
+    }
 #if defined(_WIN32)
     closesocket(sck);
 #else
@@ -689,9 +694,9 @@ g_sck_close(int sck)
             {
                 struct sockaddr_in *sock_addr_in = &sock_info.sock_addr_in;
 
-                g_snprintf(sockname, sizeof(sockname), "AF_INET %s:%d",
+                g_snprintf(sockname, sizeof(sockname), "AF_INET %s:%d - %s",
                            inet_ntoa(sock_addr_in->sin_addr),
-                           ntohs(sock_addr_in->sin_port));
+                           ntohs(sock_addr_in->sin_port), r_ip);
                 break;
             }
 
