@@ -1096,7 +1096,6 @@ process_pcm_message(int id, int size, struct stream *s)
 {
     static int sending_silence = 0;
     static unsigned int silence_start_time = 0;
-    int i;
     switch (id)
     {
         case 0:
