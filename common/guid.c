@@ -42,7 +42,7 @@ enum
 struct guid
 guid_new(void)
 {
-    struct guid guid = {0};
+    struct guid guid = {{0}};
     g_random(guid.g, sizeof(guid.g));
     /* Show this UUID as conforming to RFC4122 (section 4.1.1) */
     guid.g[E_CLOCK_SEQ_HI_AND_RESERVED] &= ~0x40; /* Clear bit 6 */

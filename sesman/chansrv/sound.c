@@ -1096,6 +1096,7 @@ process_pcm_message(int id, int size, struct stream *s)
 {
     static int sending_silence = 0;
     static unsigned int silence_start_time = 0;
+    int i;
     switch (id)
     {
         case 0:
@@ -1121,7 +1122,7 @@ process_pcm_message(int id, int size, struct stream *s)
                     int i;
                     silence_start_time = g_get_elapsed_ms();
                     sending_silence = 1;
-                    for (i = 0; i < send_silence_times; i++)
+                    for (int i = 0; i < send_silence_times; i++)
                     {
                         g_memset(buf, 0, g_bbuf_size);
                         sound_send_wave_data_chunk(buf, g_bbuf_size);
